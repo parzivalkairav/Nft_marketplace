@@ -10,6 +10,7 @@ This is a decentralized NFT marketplace built on the Ethereum network. It allows
   <li>User authentication and authorization using MetaMask</li>
   <li>Smart contract written in Solidity</li>
 </ul>
+
 # Technologies
 
 <ul>
@@ -18,6 +19,7 @@ This is a decentralized NFT marketplace built on the Ethereum network. It allows
  <li>Smart contract: Solidity, Truffle, Ganache</li>
  <li>Testing: Jest, Supertest</li>
 </ul>
+
 # Installation:
 
 To run the project, you will need to have Node.js, MongoDB, and the Ganache CLI installed.<br/>
