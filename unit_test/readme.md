@@ -9,13 +9,12 @@ To write a unit test, create a new file in the test/ directory with the extensio
 Tests should use the chai and sinon libraries to make assertions and create test doubles, respectively. Tests should cover both the success and error cases of the code being tested.<br/>
 In the context of the NFT Marketplace, some examples of tests could include:<br/>
 <ul>
-  
   <li> Testing that a user can create a new NFT and that it appears in the marketplace.</li>
   <li> Testing that a user can purchase an NFT from the marketplace and that their balance is updated accordingly.</li>
   <li> Testing that a user cannot purchase an NFT that is already sold.</li>
   <li> Example unit tests are included in the test/ directory of this project. Study these tests to get an idea of how to write your own tests.</li> 
 </ul>
-Continuous Integration<br/>
+<h1>Continuous Integration</h1>
 Unit tests can be integrated into a continuous integration (CI) pipeline to automatically run tests on every commit or pull request. This helps to catch errors before they are merged into the codebase.<br/>
 
 Popular CI tools for JavaScript projects include GitHub Actions, Travis CI, and CircleCI.
