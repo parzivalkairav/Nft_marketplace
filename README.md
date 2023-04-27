@@ -45,29 +45,30 @@ truffle compile
 truffle migrate</code>
 
 Create a .env file in the backend folder with the following variables:<br/>
-PORT=<port_number>
-MONGODB_URI=<mongodb_uri>
-ETHERSCAN_API_KEY=<etherscan_api_key>
-INFURA_PROJECT_ID=<infura_project_id>
-INFURA_SECRET=<infura_secret>
-CONTRACT_ADDRESS=<contract_address>
-PORT: the port number for the server
-MONGODB_URI: the URI for your MongoDB database
-ETHERSCAN_API_KEY: an API key for Etherscan
-INFURA_PROJECT_ID: a project ID for Infura
-INFURA_SECRET: a secret key for Infura
-CONTRACT_ADDRESS: the address of the smart contract on the Ethereum network
+PORT=<port_number><br/>
+MONGODB_URI=<mongodb_uri><br/>
+ETHERSCAN_API_KEY=<etherscan_api_key><br/>
+INFURA_PROJECT_ID=<infura_project_id><br/>
+INFURA_SECRET=<infura_secret><br/>
+CONTRACT_ADDRESS=<contract_address><br/>
+PORT: the port number for the server<br/>
+MONGODB_URI: the URI for your MongoDB database<br/>
+ETHERSCAN_API_KEY: an API key for Etherscan<br/>
+INFURA_PROJECT_ID: a project ID for Infura<br/>
+INFURA_SECRET: a secret key for Infura<br/>
+CONTRACT_ADDRESS: the address of the smart contract on the Ethereum network<br/>
 
 # Start the frontend and backend servers:
 
-Copy code
 cd frontend
 npm start
 
 cd ../backend
 npm start
 Open the app in your browser at http://localhost:3000
-Usage
+
+# Usage
+
 Connect to MetaMask to access your Ethereum wallet
 Register or log in to create an account
 Create an NFT by clicking the "Create NFT" button and filling out the form
@@ -78,8 +79,7 @@ Log out by clicking the "Logout" button
 Testing
 To run the unit tests for the backend, run the following command in the backend folder:
 
-bash
-Copy code
+
 npm test
 This will run all the tests in the __tests__ folder using Jest and Supertest.
 
