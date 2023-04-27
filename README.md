@@ -25,6 +25,7 @@ This is a decentralized NFT marketplace built on the Ethereum network. It allows
 To run the project, you will need to have Node.js, MongoDB, and the Ganache CLI installed.<br/>
 Clone the repository<br/>
 Install dependencies for the frontend, backend, and smart contract:<br/>
+<code>
 cd frontend<br/>
 npm install<br/>
 
@@ -33,16 +34,16 @@ npm install<br/>
 
 cd ../smart-contract<br/>
 npm install<br/>
-
+</code>
 Start the Ganache CLI:
 ganache-cli
-
 Compile and migrate the smart contract:
+<code>
 <br/>
 cd smart-contract<br/>
 truffle compile<br/>
 truffle migrate<br/>
-
+</code>
 Create a .env file in the backend folder with the following variables:<br/>
 PORT=<port_number><br/>
 MONGODB_URI=<mongodb_uri><br/>
@@ -58,12 +59,13 @@ INFURA_SECRET: a secret key for Infura<br/>
 CONTRACT_ADDRESS: the address of the smart contract on the Ethereum network<br/>
 
 # Start the frontend and backend servers:
-
+<code>
 cd frontend
 npm start
 
 cd ../backend
 npm start
+</code>
 Open the app in your browser at http://localhost:3000
 
 # Usage
