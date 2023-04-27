@@ -38,11 +38,10 @@ Start the Ganache CLI:
 ganache-cli
 
 Compile and migrate the smart contract:
-
-<code>
-cd smart-contract
-truffle compile
-truffle migrate</code>
+<br/>
+cd smart-contract<br/>
+truffle compile<br/>
+truffle migrate<br/>
 
 Create a .env file in the backend folder with the following variables:<br/>
 PORT=<port_number><br/>
@@ -75,10 +74,11 @@ Create an NFT by clicking the "Create NFT" button and filling out the form
 Buy or sell an NFT by clicking the "Buy" or "Sell" button on an NFT card
 Search for NFTs by entering a search term in the search bar
 Edit or delete an NFT by clicking the "Edit" or "Delete" button on an NFT card
-Log out by clicking the "Logout" button
-Testing
-To run the unit tests for the backend, run the following command in the backend folder:
+Log out by clicking the "Logout" button.
 
+# Testing
+
+To run the unit tests for the backend, run the following command in the backend folder:
 
 npm test
 This will run all the tests in the __tests__ folder using Jest and Supertest.
