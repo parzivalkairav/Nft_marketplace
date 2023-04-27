@@ -1,60 +1,87 @@
+// Import required modules
 const express = require('express');
-const Web3 = require('web3');
-const NFTMarketplaceABI = require('./abi/NFTMarketplaceABI.json');
-const NFTABI = require('./abi/NFTABI.json');
+const bodyParser = require('body-parser');
+const { NFT } = require('./nft');
 
+// Create an instance of the express application
 const app = express();
-const port = process.env.PORT || 3000;
 
-app.use(express.json());
+// Set up body-parser middleware to parse JSON data
+app.use(bodyParser.json());
 
-const web3Provider = new Web3.providers.HttpProvider(process.env.PROVIDER_URL || 'http://localhost:8545');
-const web3 = new Web3(web3Provider);
+// Create an array to store NFTs
+let nfts = [];
 
-const marketplaceContractAddress = '0x...'; // Replace with your NFT Marketplace contract address
-const marketplaceContract = new web3.eth.Contract(NFTMarketplaceABI, marketplaceContractAddress);
+// Create a new NFT
+app.post('/nfts', (req, res) => {
+  // Create a new NFT object
+  const nft = new NFT(req.body.name, req.body.description, req.body.image, req.body.price, req.body.owner);
 
-const nftContractAddress = '0x...'; // Replace with your NFT contract address
-const nftContract = new web3.eth.Contract(NFTABI, nftContractAddress);
+  // Add the NFT to the array of NFTs
+  nfts.push(nft);
 
-app.get('/nfts', async (req, res) => {
-  try {
-    const nfts = await marketplaceContract.methods.getNFTs().call();
-    res.json(nfts);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal server error' });
+  // Return the new NFT
+  res.status(201).json(nft);
+});
+
+// Get all NFTs
+app.get('/nfts', (req, res) => {
+  res.status(200).json(nfts);
+});
+
+// Get a specific NFT by ID
+app.get('/nfts/:id', (req, res) => {
+  // Find the NFT with the specified ID
+  const nft = nfts.find((nft) => nft.id === req.params.id);
+
+  // If the NFT is found, return it. Otherwise, return a 404 error.
+  if (nft) {
+    res.status(200).json(nft);
+  } else {
+    res.status(404).send();
   }
 });
 
-app.post('/nfts', async (req, res) => {
-  const { name, description, imageUri, price } = req.body;
+// Update an existing NFT
+app.put('/nfts/:id', (req, res) => {
+  // Find the NFT with the specified ID
+  const nftIndex = nfts.findIndex((nft) => nft.id === req.params.id);
 
-  try {
-    const accounts = await web3.eth.getAccounts();
-    const nftId = await nftContract.methods.createNFT(name, description, imageUri).send({ from: accounts[0] });
-    const nftPrice = web3.utils.toWei(price, 'ether');
-    await marketplaceContract.methods.createNFTSale(nftId, nftPrice).send({ from: accounts[0] });
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal server error' });
+  // If the NFT is found, update it. Otherwise, return a 404 error.
+  if (nftIndex !== -1) {
+    // Update the NFT object with the new values
+    nfts[nftIndex].name = req.body.name;
+    nfts[nftIndex].description = req.body.description;
+    nfts[nftIndex].image = req.body.image;
+    nfts[nftIndex].price = req.body.price;
+    nfts[nftIndex].owner = req.body.owner;
+
+    // Return the updated NFT
+    res.status(200).json(nfts[nftIndex]);
+  } else {
+    res.status(404).send();
   }
 });
 
-app.post('/nfts/:id/buy', async (req, res) => {
-  const { id } = req.params;
+// Delete an existing NFT
+app.delete('/nfts/:id', (req, res) => {
+  // Find the index of the NFT with the specified ID
+  const nftIndex = nfts.findIndex((nft) => nft.id === req.params.id);
 
-  try {
-    const accounts = await web3.eth.getAccounts();
-    await marketplaceContract.methods.buyNFT(id).send({ from: accounts[0], value: req.body.value });
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal server error' });
+  // If the NFT is found, delete it. Otherwise, return a 404 error.
+  if (nftIndex !== -1) {
+    // Remove the NFT from the array of NFTs
+    nfts.splice(nftIndex, 1);
+
+    // Return a 204 status code (no content)
+    res.status(204).send();
+  } else {
+    res.status(404).send();
   }
 });
 
+// Start the server
+const port = 3000;
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  console.log(`Server listening on port ${port}`);
 });
