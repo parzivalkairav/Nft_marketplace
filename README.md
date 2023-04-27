@@ -10,14 +10,16 @@ This is a decentralized NFT marketplace built on the Ethereum network. It allows
   <li>Smart contract written in Solidity</li>
   </li>
 </ul>
+
 # Technologies
+
 <ul>
-  <li>
-    Frontend: React, Web3.js, MetaMask
-Backend: Node.js, Express, MongoDB, Mongoose, Ethereum
-Smart contract: Solidity, Truffle, Ganache
-Testing: Jest, Supertest
-Installation
+ <li>Frontend: React, Web3.js, MetaMask</li>
+ <li>Backend: Node.js, Express, MongoDB, Mongoose, Ethereum</li></li>
+ <li>Smart contract: Solidity, Truffle, Ganache</li>
+ <li>Testing: Jest, Supertest</li>
+</ul>
+Installation:
 To run the project, you will need to have Node.js, MongoDB, and the Ganache CLI installed.
 </ul>
 Clone the repository
