@@ -9,7 +9,6 @@ This is a decentralized NFT marketplace built on the Ethereum network. It allows
   <li>Search for NFTs by name, description, or owner</li>
   <li>User authentication and authorization using MetaMask</li>
   <li>Smart contract written in Solidity</li>
-  </li>
 </ul>
 # Technologies
 
@@ -42,8 +41,6 @@ cd smart-contract
 truffle compile
 truffle migrate</code>
 Create a .env file in the backend folder with the following variables:
-makefile
-Copy code
 PORT=<port_number>
 MONGODB_URI=<mongodb_uri>
 ETHERSCAN_API_KEY=<etherscan_api_key>
