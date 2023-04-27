@@ -1,8 +1,9 @@
 # NFT Marketplace
+
 This is a decentralized NFT marketplace built on the Ethereum network. It allows users to buy, sell, and trade unique digital assets, such as art, music, and videos, using cryptocurrency.<br/>
 # Features
+
 <ul>
- 
   <li>Create, read, update, and delete NFTs</li>
   <li>Buy and sell NFTs using Ether or other ERC-20 tokens</li>
   <li>Search for NFTs by name, description, or owner</li>
@@ -10,7 +11,6 @@ This is a decentralized NFT marketplace built on the Ethereum network. It allows
   <li>Smart contract written in Solidity</li>
   </li>
 </ul>
-
 # Technologies
 
 <ul>
@@ -19,13 +19,11 @@ This is a decentralized NFT marketplace built on the Ethereum network. It allows
  <li>Smart contract: Solidity, Truffle, Ganache</li>
  <li>Testing: Jest, Supertest</li>
 </ul>
-Installation:
+# Installation:
+
 To run the project, you will need to have Node.js, MongoDB, and the Ganache CLI installed.
-</ul>
 Clone the repository
 Install dependencies for the frontend, backend, and smart contract:
-bash
-Copy code
 cd frontend
 npm install
 
@@ -34,15 +32,15 @@ npm install
 
 cd ../smart-contract
 npm install
+
 Start the Ganache CLI:
-Copy code
 ganache-cli
 Compile and migrate the smart contract:
-bash
-Copy code
+
+<code>
 cd smart-contract
 truffle compile
-truffle migrate
+truffle migrate</code>
 Create a .env file in the backend folder with the following variables:
 makefile
 Copy code
