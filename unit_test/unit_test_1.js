@@ -1,65 +1,92 @@
-const { expect } = require('chai');
-const sinon = require('sinon');
-const NFTMarketplace = require('./NFTMarketplace');
+const request = require('supertest');
+const { NFT } = require('./nft');
+const app = require('./app');
 
-describe('NFTMarketplace', () => {
-  let nftMarketplace;
+describe('NFT API', () => {
+  let nft;
 
-  before(() => {
-    nftMarketplace = new NFTMarketplace();
+  beforeEach(() => {
+    // Create a new NFT for each test
+    nft = new NFT('Test NFT', 'This is a test NFT', 'http://example.com/test.png', 100, 'test_owner');
   });
 
-  afterEach(() => {
-    sinon.restore();
-  });
+  describe('POST /nfts', () => {
+    it('should create a new NFT', async () => {
+      // Send a POST request to create a new NFT
+      const response = await request(app)
+        .post('/nfts')
+        .send({
+          name: 'Test NFT 2',
+          description: 'This is another test NFT',
+          image: 'http://example.com/test2.png',
+          price: 200,
+          owner: 'test_owner'
+        })
+        .expect(201);
 
-  describe('createNFTSale', () => {
-    it('should create a new NFT sale and emit a SaleCreated event', async () => {
-      const tokenId = '0x123';
-      const price = '1000000000000000000';
-      const seller = '0x456';
-      const eventSpy = sinon.spy();
-      sinon.replace(nftMarketplace.contract.methods, 'createSale', sinon.fake.resolves({ send: sinon.fake.resolves({ events: { SaleCreated: { returnValues: { tokenId, price, seller } } } }) }));
-      nftMarketplace.contract.events.SaleCreated({ fromBlock: 'latest' }).on('data', eventSpy);
-
-      await nftMarketplace.createNFTSale(tokenId, price, { from: seller });
-
-      expect(eventSpy.calledOnce).to.be.true;
-      expect(eventSpy.firstCall.args[0].returnValues.tokenId).to.equal(tokenId);
-      expect(eventSpy.firstCall.args[0].returnValues.price).to.equal(price);
-      expect(eventSpy.firstCall.args[0].returnValues.seller).to.equal(seller);
-    });
-
-    it('should revert if the caller is not the owner of the NFT', async () => {
-      const tokenId = '0x123';
-      const price = '1000000000000000000';
-      const seller = '0x456';
-      sinon.replace(nftMarketplace.contract.methods, 'ownerOf', sinon.fake.resolves('0x789'));
-
-      await expect(nftMarketplace.createNFTSale(tokenId, price, { from: seller })).to.be.revertedWith('NFTMarketplace: caller is not the owner of the NFT');
-    });
-
-    it('should revert if the NFT is already on sale', async () => {
-      const tokenId = '0x123';
-      const price = '1000000000000000000';
-      const seller = '0x456';
-      sinon.replace(nftMarketplace.contract.methods, 'ownerOf', sinon.fake.resolves(seller));
-      sinon.replace(nftMarketplace.contract.methods, 'getSale', sinon.fake.resolves({ active: true }));
-
-      await expect(nftMarketplace.createNFTSale(tokenId, price, { from: seller })).to.be.revertedWith('NFTMarketplace: NFT is already on sale');
+      // Expect the response to contain the new NFT object
+      expect(response.body).toMatchObject({
+        name: 'Test NFT 2',
+        description: 'This is another test NFT',
+        image: 'http://example.com/test2.png',
+        price: 200,
+        owner: 'test_owner'
+      });
     });
   });
 
-  describe('buyNFT', () => {
-    it('should buy an NFT and emit a SaleCompleted event', async () => {
-      const tokenId = '0x123';
-      const price = '1000000000000000000';
-      const seller = '0x456';
-      const buyer = '0x789';
-      const eventSpy = sinon.spy();
-      sinon.replace(nftMarketplace.contract.methods, 'buy', sinon.fake.resolves({ send: sinon.fake.resolves({ events: { SaleCompleted: { returnValues: { tokenId, price, seller, buyer } } } }) }));
-      nftMarketplace.contract.events.SaleCompleted({ fromBlock: 'latest' }).on('data', eventSpy);
+  describe('GET /nfts', () => {
+    it('should return all NFTs', async () => {
+      // Add the test NFT to the array of NFTs
+      const response = await request(app).get('/nfts').expect(200);
+      expect(response.body).toEqual(expect.arrayContaining([nft]));
+    });
+  });
 
-      await nftMarketplace.buyNFT(tokenId, { from: buyer, value: price });
+  describe('GET /nfts/:id', () => {
+    it('should return a specific NFT', async () => {
+      // Send a GET request to retrieve the test NFT
+      const response = await request(app).get(`/nfts/${nft.id}`).expect(200);
 
-      expect(eventSpy.calledOnce).to.be.true
+      // Expect the response to contain the test NFT object
+      expect(response.body).toMatchObject({
+        name: 'Test NFT',
+        description: 'This is a test NFT',
+        image: 'http://example.com/test.png',
+        price: 100,
+        owner: 'test_owner'
+      });
+    });
+
+    it('should return a 404 error if the NFT is not found', async () => {
+      // Send a GET request with an invalid ID
+      await request(app).get('/nfts/invalid_id').expect(404);
+    });
+  });
+
+  describe('PUT /nfts/:id', () => {
+    it('should update an existing NFT', async () => {
+      // Send a PUT request to update the test NFT
+      const response = await request(app)
+        .put(`/nfts/${nft.id}`)
+        .send({
+          name: 'Updated Test NFT',
+          description: 'This is an updated test NFT',
+          image: 'http://example.com/updated_test.png',
+          price: 200,
+          owner: 'updated_owner'
+        })
+        .expect(200);
+
+      // Expect the response to contain the updated NFT object
+      expect(response.body).toMatchObject({
+        name: 'Updated Test NFT',
+        description: 'This is an updated test NFT',
+        image: 'http://example.com/updated_test.png',
+        price: 200,
+        owner: 'updated_owner'
+      });
+    });
+
+    it('should return a 404 error if the NFT is not found', async () => {
+      // Send a
