@@ -1,14 +1,11 @@
-# Nft_marketplace
-a marketplace demo for the digital assets created
-
 # NFT Marketplace
 This is a decentralized NFT marketplace built on the Ethereum network. It allows users to buy, sell, and trade unique digital assets, such as art, music, and videos, using cryptocurrency.<br/>
-Features
-Create, read, update, and delete NFTs
-Buy and sell NFTs using Ether or other ERC-20 tokens
-Search for NFTs by name, description, or owner
-User authentication and authorization using MetaMask
-Smart contract written in Solidity
+# Features
+Create, read, update, and delete NFTs<br/>
+Buy and sell NFTs using Ether or other ERC-20 tokens<br/>
+Search for NFTs by name, description, or owner<br/>
+User authentication and authorization using MetaMask<br/>
+Smart contract written in Solidity<br/>
 Technologies
 Frontend: React, Web3.js, MetaMask
 Backend: Node.js, Express, MongoDB, Mongoose, Ethereum
