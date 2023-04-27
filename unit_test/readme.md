@@ -1,4 +1,4 @@
-<h2>Unit Tests<h2>
+<h1>Unit Tests</h1>
 This project contains unit tests to ensure that the NFT Marketplace code is working as expected. Unit tests help to catch errors early and ensure that the code continues to work as changes are made.
 
 Running the Tests
