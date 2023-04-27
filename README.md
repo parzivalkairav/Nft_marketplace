@@ -19,7 +19,7 @@ Smart contract: Solidity, Truffle, Ganache
 Testing: Jest, Supertest
 Installation
 To run the project, you will need to have Node.js, MongoDB, and the Ganache CLI installed.
-
+</ul>
 Clone the repository
 Install dependencies for the frontend, backend, and smart contract:
 bash
