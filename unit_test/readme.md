@@ -1,15 +1,14 @@
 <h1>Unit Tests</h1>
 This project contains unit tests to ensure that the NFT Marketplace code is working as expected. Unit tests help to catch errors early and ensure that the code continues to work as changes are made.
 
-Running the Tests
-To run the unit tests, use the following command:
+Running the Tests:
+To run the unit tests, use the following command:<br/>
 
-bash
-Copy code
-npm test
-This command will run all of the unit tests in the test/ directory and display the results in the terminal.
+npm test<br/>
 
-Writing Unit Tests
+This command will run all of the unit tests in the test/ directory and display the results in the terminal.<br/>
+
+<h1>Writing Unit Tests</h1>
 To write a unit test, create a new file in the test/ directory with the extension .test.js. This file should contain one or more tests for a specific piece of functionality.
 
 Tests should use the chai and sinon libraries to make assertions and create test doubles, respectively. Tests should cover both the success and error cases of the code being tested.
