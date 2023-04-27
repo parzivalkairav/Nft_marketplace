@@ -2,7 +2,7 @@
 This is a decentralized NFT marketplace built on the Ethereum network. It allows users to buy, sell, and trade unique digital assets, such as art, music, and videos, using cryptocurrency.<br/>
 # Features
 <ul>
-  <li>
+ 
   <li>Create, read, update, and delete NFTs</li>
   <li>Buy and sell NFTs using Ether or other ERC-20 tokens</li>
   <li>Search for NFTs by name, description, or owner</li>
@@ -10,8 +10,10 @@ This is a decentralized NFT marketplace built on the Ethereum network. It allows
   <li>Smart contract written in Solidity</li>
   </li>
 </ul>
-Technologies
-Frontend: React, Web3.js, MetaMask
+# Technologies
+<ul>
+  <li>
+    Frontend: React, Web3.js, MetaMask
 Backend: Node.js, Express, MongoDB, Mongoose, Ethereum
 Smart contract: Solidity, Truffle, Ganache
 Testing: Jest, Supertest
